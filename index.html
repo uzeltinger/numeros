@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Números</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+    var id = null;
+    var sURLVariable = window.location.search.substring(1);        
+    if(sURLVariable){
+        var sParameterName = sURLVariable.split('=');
+        var id = sParameterName[1];
+        if(Math.floor(id) == id && $.isNumeric(id)) {
+            if(id>1 & id<11){
+                if(id%2==0){
+                    console.log(id);
+                    var numeros = localStorage.getItem("numeros");
+                    if(numeros){
+                        localStorage.setItem("numeros",numeros+","+id);
+                    }else{
+                        localStorage.setItem("numeros",id);
+                    }
+                }
+            }
+        }
+    }else{
+        //No se envió la variable id por url, se eliminia la variable numeros de localStorage, 
+        // como opción para reiniciar
+        localStorage.removeItem("numeros");
+    }
+    var numeros = localStorage.getItem("numeros");
+    if(numeros){
+        var array = numeros.split(',');
+        $.each(array, function( index, value ) {            
+            $(document.body).append("Ingresé al array y tengo el ID: "+value+"<br>");
+        });
+    }
+    </script>
+</body>
+</html>
